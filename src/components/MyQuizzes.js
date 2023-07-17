@@ -21,7 +21,7 @@ export default function MyQuizzes(){
     }
 
     function Delete(id){
-        Axios.delete(`http://localhost:5000/quiz/${quizzes[id]._id}`)
+        Axios.delete(`https://quiztopia-api.onrender.com/quiz/${quizzes[id]._id}`)
         .then(res=>{
             setQuizzes(()=>{
                 return quizzes.filter((e,i)=>{
