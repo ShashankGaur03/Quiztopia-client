@@ -1,4 +1,4 @@
-import React, { useContext , useState } from "react";
+import React, { useContext , useEffect, useState } from "react";
 import AnswerContext from "../contexts/AnswerContext";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -8,14 +8,17 @@ export default function Result(){
     const answers = temp.Answers;
     const params = useParams();
     const navigate = useNavigate();
+    const [score,setScore] = useState(0);
 
-    const [score,setScore] = useState(()=>{
+    useEffect(()=>{
         let c=0;
         for(let i=0 ; i<questions.length ; i++){
             if(questions[i].ans===answers[i]) c++;
         }
-        return c;
-    })
+        setScore(c);
+        console.log(questions);
+        console.log(answers);
+    },[questions,answers])
 
     const style1 = {
         border: "2px solid #293264",
@@ -53,7 +56,7 @@ export default function Result(){
     function customStyle(opt,id){
         if(questions[id].ans===opt) return style2;
         else if(answers[id]===opt) return style3;
-        else return style1
+        else return style1;
     }
 
     return (

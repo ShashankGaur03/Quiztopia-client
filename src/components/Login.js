@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import UserContext from "../contexts/UserContext";
+import WaitingScreen from "./WaitingScreen";
 
-export default function Login(props){
+export default function Login(){
     const [info,setInfo] = useState({username:"",email:"",password:""});
     const navigate = useNavigate();
     const a = useContext(UserContext);
+    const [show,setshow] = useState(false);
 
     function handleChange(event){
         const {name,value} = event.target;
@@ -14,11 +16,14 @@ export default function Login(props){
     }
     function login(event){
         event.preventDefault();
-
+        setshow(true);
+        console.log("true");
         Axios.post("https://quiztopia-api.onrender.com/login",{
             Email:info.email,
             Password:info.password
         }).then(res=>{
+            setshow(false);
+            console.log("false");
             if(res.data.error===true){
                 alert("Error! Incorrect Username and/or Password. Please try again");
             }
@@ -32,6 +37,7 @@ export default function Login(props){
 
     return (
         <form className="form">
+            {show && <WaitingScreen />}
             <div className="inputs">
                 <label htmlFor="email">Username/Email: </label>
                 <input 

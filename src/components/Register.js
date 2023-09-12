@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
+import WaitingScreen from "./WaitingScreen";
 
 export default function Register(){
     const [info,setInfo] = useState({username:"",email:"",password:"",cpassword:""});
     const navigate = useNavigate();
     const a = useContext(UserContext);
+    const [show,setshow] = useState(false);
 
     function handleChange(event){
         const {name,value} = event.target;
@@ -15,11 +17,13 @@ export default function Register(){
     function register(event){
         event.preventDefault();
         if(info.password===info.cpassword && info.password!==""){
+            setshow(true);
             Axios.post("https://quiztopia-api.onrender.com/register",{
                 Username:info.username,
                 Email: info.email,
                 Password: info.password
             }).then(res=>{
+                setshow(false);
                 if(res.data.error===1){
                     alert("This user already exists!")
                 }
@@ -40,6 +44,7 @@ export default function Register(){
 
     return (
         <form className="form">
+            {show && <WaitingScreen />}
             <div className="inputs">
                 <label htmlFor="username">User Name: </label>
                 <input 

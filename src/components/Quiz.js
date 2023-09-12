@@ -28,7 +28,7 @@ export default function Quiz(){
 
     useEffect(()=>{
         if(flag===false) return;
-        if(time!="00:00:00"){
+        if(time!=="00:00:00"){
             setTimeout(()=>{setTime(dec())},1000);
         }
         else submit();

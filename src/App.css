@@ -404,6 +404,29 @@ nav > p{
   left: 45vw;
 }
 
+.waiting-screen{
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  height: 90vh;
+  background-color: #F5F7FB;
+}
+
+.loader {
+  border: 0.8vw solid #f3f3f3;
+  border-top: 0.8vw solid gray;
+  border-radius: 50%;
+  width: 5vw;
+  height: 5vw;
+  animation: spin 2s linear infinite;
+  margin-left: 47.5vw;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* MEDIA QUERIES */
 
 /* Tablets */
